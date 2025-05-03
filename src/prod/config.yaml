@@ -1,0 +1,9 @@
+mexico_hexgrid:
+  output_path: "data/mexico_hexgrid.parquet"
+  s3:
+    enabled: true
+    bucket_name: "clientes-bancolombia"
+    s3_path: "mexico_weather/mexico_hexgrid.parquet"
+  hex:
+    resolution: 5
+    buffer_size: 10000  # buffer size in meters

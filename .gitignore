@@ -172,3 +172,12 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# ignore data
+data/
+
+# ignore .env files
+.env
+
+# ignore config files
+config.yaml

@@ -7,3 +7,21 @@ mexico_hexgrid:
   hex:
     resolution: 5
     buffer_size: 10000  # buffer size in meters
+
+nasa_temperature:
+  start_date: "20220101"
+  end_date: "20250430"
+  api:
+    base_url: "https://power.larc.nasa.gov/api/temporal/hourly/point"
+    parameters: "T2M"  # Temperature at 2 meters
+    community: "RE"
+    time_standard: "LST"
+    format: "JSON"
+    user_id: "mexico_weather_app"
+  s3:
+    enabled: true
+    bucket_name: "clientes-bancolombia"
+    s3_path: "mexico_weather/temp/nasa_temperature"
+  processing:
+    retry_delay: 5   # Delay between retries in seconds
+    progress_file: "data/processed_hexids.txt"  # File to track processed hexagons

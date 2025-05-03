@@ -177,7 +177,6 @@ def upload_to_s3(file_path: str, bucket_name: str, s3_path: str) -> bool:
     try:
         logger.info(f"Uploading {file_path} to s3://{bucket_name}/{s3_path}")
         session = boto3.Session(profile_name='beway')
-        s3_client = session.client('s3')
         wr.s3.to_parquet(
             df=pd.read_parquet(file_path),
             path=f"s3://{bucket_name}/{s3_path}",

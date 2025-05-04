@@ -203,8 +203,8 @@ def process_temperature_data(api_response: Dict) -> pd.DataFrame:
         df['day'] = df['date'].dt.day
         df['hour'] = df['date'].dt.hour
 
-        # Drop the date column
-        df = df.drop(columns=['date'])
+        # Sort columns
+        df = df[['year', 'month', 'day', 'hour', 'temperature']]
 
         return df
     except KeyError as e:
@@ -227,10 +227,10 @@ def save_temperature_data(df: pd.DataFrame, local_path: str) -> str:
     Returns:
         Path to the saved file
     """
-    filepath = os.path.join(local_path, "temp.txt")
+    filepath = os.path.join(local_path, "temp.csv")
     try:
         # Save the DataFrame to a text file
-        df.to_csv(filepath)
+        df.to_csv(filepath, index=False)
         logger.debug(f"Saved temperature data to {filepath}")
         return filepath
     except Exception as e:
@@ -263,7 +263,8 @@ def upload_to_s3(
             path=f"s3://{bucket_name}/{s3_key}",
             dataset=True,
             mode="overwrite",
-            boto3_session=session
+            boto3_session=session,
+            index=False
         )
         logger.info(f"Uploaded {file_path} to s3://{bucket_name}/{s3_key}")
         return True
